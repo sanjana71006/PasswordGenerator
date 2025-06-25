@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurePass - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="logo">
+            <div class="logo-icon">🔒</div>
+            <h1>SecurePass</h1>
+        </div>
+        <div class="user-section">
+            <span id="user-email"></span>
+            <button id="logout-btn">Logout</button>
+        </div>
+    </header>
+    
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <ul class="nav-menu">
+                <li class="active" data-tab="generator">Password Generator</li>
+                <li data-tab="personalize">Personalized Generator</li>
+                <li data-tab="saved">Saved Passwords</li>
+            </ul>
+        </div>
+        
+        <div class="main-content">
+            <!-- Random Password Generator Tab -->
+            <section id="generator" class="tab-content active">
+                <h2>Random Password Generator</h2>
+                
+                <div class="password-display">
+                    <input type="text" id="generated-password" readonly>
+                    <button id="copy-btn" class="icon-btn">📋</button>
+                    <button id="refresh-btn" class="icon-btn">🔄</button>
+                </div>
+                
+                <div class="generator-options">
+                    <div class="option-group">
+                        <label for="length-slider">Password Length: <span id="length-value">12</span></label>
+                        <input type="range" id="length-slider" min="6" max="30" value="12">
+                    </div>
+                    
+                    <div class="option-group checkboxes">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="include-uppercase" checked>
+                            <label for="include-uppercase">Include Uppercase</label>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="include-lowercase" checked>
+                            <label for="include-lowercase">Include Lowercase</label>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="include-numbers" checked>
+                            <label for="include-numbers">Include Numbers</label>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="include-symbols" checked>
+                            <label for="include-symbols">Include Special Characters</label>
+                        </div>
+                    </div>
+                    
+                    <div class="strength-meter">
+                        <label>Password Strength:</label>
+                        <div class="meter-container">
+                            <div id="strength-bar"></div>
+                            <span id="strength-value">0/10</span>
+                        </div>
+                    </div>
+                    
+                    <button id="save-password-btn" class="primary-btn">Save Password</button>
+                </div>
+            </section>
+            
+            <!-- Personalized Password Generator Tab -->
+            <section id="personalize" class="tab-content">
+                <h2>Personalized Password Generator</h2>
+                
+                <div class="password-display">
+                    <input type="text" id="personalized-password" readonly>
+                    <button id="copy-personal-btn" class="icon-btn">📋</button>
+                    <button id="generate-personal-btn" class="icon-btn">🔄</button>
+                </div>
+                
+                <div class="personal-details">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="personal-name">Your Name</label>
+                            <input type="text" id="personal-name" placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="date-of-birth">Date of Birth</label>
+                            <input type="date" id="date-of-birth">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="special-char">Favorite Special Character</label>
+                            <input type="text" id="special-char" placeholder="e.g. @, #, $, %">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="favorite-number">Favorite Number</label>
+                            <input type="number" id="favorite-number" placeholder="Enter a number">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pet-name">Pet's Name</label>
+                            <input type="text" id="pet-name" placeholder="Enter pet's name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="favorite-color">Favorite Color</label>
+                            <input type="text" id="favorite-color" placeholder="Enter favorite color">
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="personal-length-slider">Password Length: <span id="personal-length-value">12</span></label>
+                        <input type="range" id="personal-length-slider" min="8" max="30" value="12">
+                    </div>
+                    
+                    <div class="strength-meter">
+                        <label>Password Strength:</label>
+                        <div class="meter-container">
+                            <div id="personal-strength-bar"></div>
+                            <span id="personal-strength-value">0/10</span>
+                        </div>
+                    </div>
+                    
+                    <button id="save-personal-password-btn" class="primary-btn">Save Password</button>
+                </div>
+            </section>
+            
+            <!-- Saved Passwords Tab -->
+            <section id="saved" class="tab-content">
+                <h2>Saved Passwords</h2>
+                
+                <div class="search-filter">
+                    <input type="text" id="search-passwords" placeholder="Search passwords...">
+                    <select id="category-filter">
+                        <option value="all">All Categories</option>
+                        <option value="Banking">Banking</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Social">Social Media</option>
+                        <option value="Email">Email</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Work">Work</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="passwords-list" id="passwords-container">
+                    <!-- Passwords will be dynamically added here -->
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Save Password Modal -->
+    <div id="save-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Save Password</h2>
+            
+            <div class="form-group">
+                <label for="app-name">App/Website Name</label>
+                <input type="text" id="app-name" placeholder="e.g. Facebook, Gmail" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Username/Email (Optional)</label>
+                <input type="text" id="username" placeholder="Your username for this site">
+            </div>
+            
+            <div class="form-group">
+                <label for="category-select">Category</label>
+                <select id="category-select" required>
+                    <option value="">Select a category</option>
+                    <option value="Banking">Banking</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Social">Social Media</option>
+                    <option value="Email">Email</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Work">Work</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="modal-password">Password</label>
+                <input type="text" id="modal-password" readonly>
+            </div>
+            
+            <div class="modal-buttons">
+                <button id="cancel-save" class="secondary-btn">Cancel</button>
+                <button id="confirm-save" class="primary-btn">Save</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
